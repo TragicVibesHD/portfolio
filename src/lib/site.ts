@@ -3,7 +3,8 @@
  *
  * Anything wrapped in [SQUARE_BRACKETS] is a placeholder. `isPlaceholder()`
  * in lib/utils.ts detects these so unfilled links hide themselves rather
- * than rendering as broken buttons. See docs/CHECKLIST.md before launch.
+ * than rendering as broken buttons. See the "Before you publish"
+ * checklist in README.md.
  */
 
 export const site = {
