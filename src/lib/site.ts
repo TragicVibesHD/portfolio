@@ -44,11 +44,11 @@ export const site = {
   /** Resume lives in /public. Replace the placeholder PDF before launch. */
   resumePath: '/resume.pdf',
 
-  /** PLACEHOLDER URLs - replace with your real profiles */
-  github: 'https://github.com/[GITHUB_USERNAME]',
+  github: 'https://github.com/TragicVibesHD',
+  /** PLACEHOLDER - replace with your real LinkedIn profile */
   linkedin: 'https://www.linkedin.com/in/[LINKEDIN_USERNAME]',
   /** Public repo for this site, shown in the footer. Leave '' to hide. */
-  sourceRepo: '',
+  sourceRepo: 'https://github.com/TragicVibesHD/portfolio',
 
   seo: {
     titleTemplate: '%s - [FULL_NAME]',
