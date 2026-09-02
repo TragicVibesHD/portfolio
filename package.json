@@ -5,18 +5,20 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run --config vitest.config.mts",
-    "test:watch": "vitest --config vitest.config.mts",
-    "test:e2e": "playwright test",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "content:build": "content-collections build",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint",
+    "postinstall": "content-collections build",
+    "start": "next start",
+    "test": "vitest run --config vitest.config.mts",
+    "test:e2e": "playwright test",
+    "test:watch": "vitest --config vitest.config.mts",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
@@ -43,6 +45,7 @@
     "zod": "^4.5.4"
   },
   "devDependencies": {
+    "@content-collections/cli": "^0.1.9",
     "@content-collections/core": "^0.15.2",
     "@content-collections/mdx": "^0.2.2",
     "@content-collections/next": "^0.2.11",

@@ -57,19 +57,20 @@ The site runs at <http://localhost:3000>. No environment variables are needed fo
 
 ## Commands
 
-| Command               | What it does                                    |
-| --------------------- | ----------------------------------------------- |
-| `npm run dev`         | Dev server on port 3000                         |
-| `npm run build`       | Production build                                |
-| `npm run start`       | Serve the production build                      |
-| `npm run lint`        | ESLint                                          |
-| `npm run typecheck`   | TypeScript, no emit                             |
-| `npm test`            | Unit tests (Vitest)                             |
-| `npm run test:e2e`    | End-to-end tests (Playwright)                   |
-| `npm run format`      | Format everything with Prettier                 |
-| `npm run db:generate` | Generate SQL migrations from the Drizzle schema |
-| `npm run db:migrate`  | Apply migrations                                |
-| `npm run db:studio`   | Browse the database                             |
+| Command                 | What it does                                    |
+| ----------------------- | ----------------------------------------------- |
+| `npm run dev`           | Dev server on port 3000                         |
+| `npm run build`         | Production build                                |
+| `npm run start`         | Serve the production build                      |
+| `npm run content:build` | Regenerate the typed content layer from MDX     |
+| `npm run lint`          | ESLint                                          |
+| `npm run typecheck`     | TypeScript, no emit                             |
+| `npm test`              | Unit tests (Vitest)                             |
+| `npm run test:e2e`      | End-to-end tests (Playwright)                   |
+| `npm run format`        | Format everything with Prettier                 |
+| `npm run db:generate`   | Generate SQL migrations from the Drizzle schema |
+| `npm run db:migrate`    | Apply migrations                                |
+| `npm run db:studio`     | Browse the database                             |
 
 ## Editing your content
 
