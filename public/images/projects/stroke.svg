@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Stroke Prediction Model placeholder image">
+  <rect width="800" height="450" fill="#0b1220"/>
+  <g stroke="#1a2438" stroke-width="1" fill="none">
+    <path d="M0 90h800M0 180h800M0 270h800M0 360h800"/>
+  </g>
+  <!-- decision tree -->
+  <g stroke="#2dd4bf" stroke-width="2" fill="none" opacity="0.7">
+    <path d="M400 120v40M400 160 280 220M400 160 520 220M280 260 220 320M280 260 340 320M520 260 460 320M520 260 580 320"/>
+  </g>
+  <circle cx="400" cy="110" r="26" fill="#14b8a6"/>
+  <circle cx="280" cy="240" r="20" fill="#14b8a6" opacity="0.75"/>
+  <circle cx="520" cy="240" r="20" fill="#14b8a6" opacity="0.75"/>
+  <g fill="#1a2438" stroke="#263654">
+    <circle cx="220" cy="340" r="16"/>
+    <circle cx="340" cy="340" r="16"/>
+    <circle cx="460" cy="340" r="16"/>
+    <circle cx="580" cy="340" r="16"/>
+  </g>
+  <text x="60" y="62" font-family="monospace" font-size="22" fill="#5eead4" letter-spacing="4">STROKE PREDICTION MODEL</text>
+  <text x="60" y="415" font-family="monospace" font-size="15" fill="#64748b" letter-spacing="2">PYTHON · SCIKIT-LEARN · RANDOM FOREST · FLASK</text>
+</svg>

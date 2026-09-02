@@ -1,0 +1,69 @@
+---
+title: Internship Management Platform
+summary: A Flask web platform supporting internship workflows for students, companies and staff — listings, applications, dashboards and document handling.
+categories: ['Web Development', 'Backend Development', 'Academic Projects']
+tech: ['Python', 'Flask', 'SQLAlchemy', 'SQL', 'HTML', 'CSS', 'JavaScript', 'Git']
+features:
+  - Role-specific workflows for students, companies and staff
+  - Internship and project listings with application tracking
+  - Dashboards summarising activity for each role
+  - Relational database models built with SQLAlchemy
+  - Document handling for internship-related files
+  - Authentication and role management
+challenges:
+  - Designing database models that cleanly support three distinct user roles
+  - Keeping role-based access rules consistent across every route
+  - Coordinating features and merges in a shared Git workflow
+contribution: Contributed to the database models, role-based workflows and dashboard views as part of a team project.
+lessons:
+  - Designing relational schemas around real user workflows rather than screens
+  - How role-based access control shapes both routing and templates
+  - Practical team Git workflow — branches, reviews and merge discipline
+image: /images/projects/internship.svg
+imageAlt: Abstract illustration of three user roles connected to a shared platform dashboard
+repo: '[INTERNSHIP_PLATFORM_GITHUB_URL]'
+demo: '[INTERNSHIP_PLATFORM_DEMO_URL]'
+status: In development
+year: '2025'
+featured: true
+order: 3
+---
+
+## Overview
+
+The Internship Management Platform is a web application that supports the workflows around internships: companies post opportunities, students discover and apply to them, and staff oversee the process. It was built as a team project using Flask and SQLAlchemy, with each user role getting its own views, permissions and dashboard.
+
+## The problem
+
+Internship coordination commonly runs on email threads and spreadsheets. Applications get lost, statuses go stale, and nobody has a single view of what's happening. A role-aware platform gives each participant exactly the workflow they need over one shared, consistent database.
+
+## Goals
+
+- One platform serving three distinct roles — student, company and staff
+- Reliable application tracking from listing to outcome
+- Dashboards that surface the right information for each role
+- A clean relational data model that future features can build on
+
+## How it works
+
+The platform is a Flask application backed by SQLAlchemy models for users, roles, listings, applications and documents. Routing is organised around roles: students browse listings and track their applications, companies manage their postings and review applicants, and staff oversee the overall process. Authentication and role checks gate each workflow.
+
+## Status
+
+The platform is **in active development**. Core models, role workflows, listings, application tracking and dashboards are implemented; some functionality — such as richer document workflows and notifications — is planned rather than complete, and is labelled accordingly rather than presented as finished.
+
+## Decisions and trade-offs
+
+- **Server-rendered templates over an SPA:** the workflows are form-driven and benefit more from simple, reliable pages than from a heavy frontend stack.
+- **Role checks at the route level:** centralising access control per route kept the permission rules auditable.
+- **SQLAlchemy models first:** designing the schema before building screens kept the three role workflows consistent with each other.
+
+## Lessons learned
+
+This project was as much about teamwork as code: agreeing on models before building features, keeping branches short-lived, and reviewing each other's changes. Technically, it drove home how much of a web platform's quality is decided by its data model.
+
+## Future improvements
+
+- Notifications for application status changes
+- Richer document workflows (versioning, approvals)
+- Reporting views for staff

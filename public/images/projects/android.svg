@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Android Mobile Applications placeholder image">
+  <rect width="800" height="450" fill="#0b1220"/>
+  <g stroke="#1a2438" stroke-width="1" fill="none">
+    <path d="M0 90h800M0 180h800M0 270h800M0 360h800"/>
+  </g>
+  <!-- three phone screens -->
+  <g>
+    <rect x="170" y="110" width="130" height="240" rx="16" fill="#1a2438" stroke="#263654"/>
+    <rect x="188" y="140" width="94" height="12" rx="6" fill="#2dd4bf"/>
+    <rect x="188" y="166" width="94" height="8" rx="4" fill="#334155"/>
+    <rect x="188" y="184" width="70" height="8" rx="4" fill="#334155"/>
+    <rect x="188" y="300" width="94" height="26" rx="8" fill="#14b8a6"/>
+  </g>
+  <g>
+    <rect x="335" y="80" width="130" height="240" rx="16" fill="#1a2438" stroke="#2dd4bf"/>
+    <rect x="353" y="110" width="94" height="12" rx="6" fill="#2dd4bf"/>
+    <rect x="353" y="136" width="94" height="34" rx="6" fill="#0b1220" stroke="#334155"/>
+    <rect x="353" y="182" width="94" height="34" rx="6" fill="#0b1220" stroke="#334155"/>
+    <rect x="353" y="270" width="94" height="26" rx="8" fill="#14b8a6"/>
+  </g>
+  <g>
+    <rect x="500" y="110" width="130" height="240" rx="16" fill="#1a2438" stroke="#263654"/>
+    <circle cx="565" cy="180" r="28" fill="#14b8a6" opacity="0.7"/>
+    <rect x="518" y="230" width="94" height="8" rx="4" fill="#334155"/>
+    <rect x="518" y="248" width="70" height="8" rx="4" fill="#334155"/>
+    <rect x="518" y="300" width="94" height="26" rx="8" fill="#14b8a6"/>
+  </g>
+  <text x="60" y="62" font-family="monospace" font-size="22" fill="#5eead4" letter-spacing="4">ANDROID APPLICATIONS</text>
+  <text x="60" y="415" font-family="monospace" font-size="15" fill="#64748b" letter-spacing="2">JAVA · ANDROID STUDIO · ANDROID SDK · XML</text>
+</svg>

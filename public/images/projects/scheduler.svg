@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Course Assessment Scheduler placeholder image">
+  <rect width="800" height="450" fill="#0b1220"/>
+  <g fill="none" stroke="#1a2438" stroke-width="1">
+    <path d="M0 90h800M0 180h800M0 270h800M0 360h800M114 0v450M228 0v450M342 0v450M456 0v450M570 0v450M684 0v450"/>
+  </g>
+  <g rx="8">
+    <rect x="130" y="105" width="84" height="60" rx="8" fill="#14b8a6" opacity="0.9"/>
+    <rect x="358" y="105" width="84" height="60" rx="8" fill="#1a2438" stroke="#263654"/>
+    <rect x="586" y="195" width="84" height="60" rx="8" fill="#14b8a6" opacity="0.55"/>
+    <rect x="244" y="285" width="84" height="60" rx="8" fill="#14b8a6" opacity="0.75"/>
+    <rect x="472" y="285" width="84" height="60" rx="8" fill="#1a2438" stroke="#263654"/>
+  </g>
+  <g stroke="#2dd4bf" stroke-width="2" fill="none" opacity="0.6">
+    <path d="M214 135 358 135M442 135 586 225M328 315 472 315"/>
+  </g>
+  <text x="60" y="62" font-family="monospace" font-size="22" fill="#5eead4" letter-spacing="4">COURSE ASSESSMENT SCHEDULER</text>
+  <text x="60" y="415" font-family="monospace" font-size="15" fill="#64748b" letter-spacing="2">PYTHON · FLASK · OR-TOOLS · CP-SAT</text>
+</svg>

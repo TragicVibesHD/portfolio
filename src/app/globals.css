@@ -1,26 +1,268 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
+/*
+  Theme strategy: next-themes writes `class="dark"` (or `light`) onto <html>.
+  The dark variant follows that class rather than the OS preference, so the
+  user's explicit toggle always wins over `prefers-color-scheme`.
+*/
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------
+   Semantic tokens. Every colour used in the app resolves through one of
+   these, so light and dark can never drift apart.
+   ------------------------------------------------------------------ */
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --surface: #f6f7f8;
+  --surface-raised: #ffffff;
+  --border: #e3e5e9;
+  --border-strong: #cdd1d8;
+  --foreground: #0a0b0d;
+  --muted-foreground: #575c66;
+  --accent: #0f766e;
+  --accent-hover: #115e59;
+  --accent-foreground: #ffffff;
+  --accent-subtle: #ecfdf8;
+  --ring: #0f766e;
+
+  --shadow-color: 220 40% 12%;
+}
+
+.dark {
+  --background: #08090b;
+  --surface: #101216;
+  --surface-raised: #16181d;
+  --border: #202329;
+  --border-strong: #2f343c;
+  --foreground: #ededf1;
+  --muted-foreground: #969ba5;
+  --accent: #2ee6c5;
+  --accent-hover: #5cf0d6;
+  --accent-foreground: #04130f;
+  --accent-subtle: #0c211d;
+  --ring: #2ee6c5;
+
+  --shadow-color: 0 0% 0%;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-subtle: var(--accent-subtle);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ---------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Offset anchored headings so the sticky header never covers them */
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Headings read as a deliberate scale, not browser defaults */
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+    letter-spacing: -0.022em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 999px;
+    border: 2px solid var(--background);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--muted-foreground);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
+/* ---------------------------------------------------------------------
+   Reusable pieces
+   ------------------------------------------------------------------ */
+@utility container-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 72rem;
+  padding-inline: 1.25rem;
+}
+
+/* Skip link: offscreen until focused */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+/* Scroll-reveal. JS adds .is-visible; reduced motion shows content instantly. */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Subtle grid backdrop used behind hero + section breaks */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+
+/* Long-form case-study typography */
+.prose-case {
+  color: var(--muted-foreground);
+  line-height: 1.75;
+}
+.prose-case > * + * {
+  margin-top: 1.15em;
+}
+.prose-case h2 {
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  scroll-margin-top: 6rem;
+}
+.prose-case h3 {
+  color: var(--foreground);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  scroll-margin-top: 6rem;
+}
+.prose-case strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+.prose-case a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+  text-decoration-line: underline;
+}
+.prose-case ul,
+.prose-case ol {
+  padding-left: 1.25rem;
+}
+.prose-case ul {
+  list-style-type: disc;
+}
+.prose-case ol {
+  list-style-type: decimal;
+}
+.prose-case li::marker {
+  color: var(--accent);
+}
+.prose-case li + li {
+  margin-top: 0.4rem;
+}
+.prose-case code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+.prose-case pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+.prose-case pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+.prose-case blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+  font-style: italic;
 }

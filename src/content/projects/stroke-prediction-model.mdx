@@ -1,0 +1,66 @@
+---
+title: Stroke Prediction Model
+summary: A machine-learning web app that estimates stroke risk from user-supplied health information, using a Random Forest model served through Flask.
+categories: ['Data & Machine Learning', 'Web Development']
+tech: ['Python', 'pandas', 'scikit-learn', 'Random Forest', 'Flask', 'HTML', 'CSS', 'JavaScript']
+features:
+  - Data preprocessing pipeline handling numerical and categorical health features
+  - Comparison of multiple machine-learning approaches during model selection
+  - Random Forest classifier chosen from the evaluated models
+  - Web form for entering health information and viewing a prediction
+  - Visualizations exploring the dataset and model behaviour
+challenges:
+  - Handling missing values and encoding categorical features consistently between training and inference
+  - Dealing with class imbalance inherent in stroke datasets
+  - Serving the trained model behind a web interface without duplicating preprocessing logic
+contribution: Built the full pipeline — preprocessing, model comparison and evaluation, and the Flask interface that serves predictions.
+lessons:
+  - Why preprocessing must be identical at training time and prediction time
+  - How to compare models fairly using consistent evaluation metrics
+  - The importance of communicating model limitations honestly to end users
+image: /images/projects/stroke.svg
+imageAlt: Abstract illustration of a health data form feeding into a decision tree
+repo: '[STROKE_PREDICTION_GITHUB_URL]'
+demo: '[STROKE_PREDICTION_DEMO_URL]'
+status: Completed
+year: '2025'
+featured: true
+order: 2
+---
+
+## Overview
+
+This project applies machine learning to a health-screening question: given basic information about a person — age, health indicators, lifestyle factors — estimate their stroke risk. It covers the full lifecycle: cleaning and preparing data, comparing models, evaluating results and serving the chosen model through a web interface anyone can use.
+
+## The problem
+
+Stroke risk depends on a mix of numerical and categorical factors that interact in non-obvious ways. The interesting engineering problems are in the data: missing values, categorical encoding, class imbalance (strokes are rare in the data), and making sure the exact same preprocessing runs at prediction time as at training time.
+
+## Goals
+
+- Build a clean, reproducible preprocessing pipeline for mixed-type health data
+- Compare several machine-learning approaches on consistent metrics
+- Serve the best-performing model through a simple, honest web interface
+- Present predictions as risk estimates, not diagnoses
+
+## How it works
+
+The pipeline loads the dataset with pandas, imputes missing values, encodes categorical features and splits data for evaluation. Several scikit-learn models were compared, with a Random Forest classifier selected based on its evaluation results. The trained model and its preprocessing steps are packaged together, so the Flask app applies identical transformations to user input before predicting.
+
+The interface is a single form: users enter their information, submit, and see the model's risk estimate along with clear wording that this is an educational tool, not medical advice.
+
+## Decisions and trade-offs
+
+- **Random Forest over more complex models:** it handled the mixed feature types well, is robust to feature scaling, and its behaviour is easier to reason about than a deep model — a sensible fit for the dataset size.
+- **Pipeline packaging:** bundling preprocessing with the model eliminated an entire class of training/serving mismatch bugs.
+- **No accuracy claims in the UI:** the interface deliberately avoids overstating model performance to users.
+
+## Lessons learned
+
+Most of the work in applied machine learning is data work. Getting preprocessing right — and keeping it identical between training and inference — mattered far more than model choice. Evaluating with appropriate metrics for imbalanced data was also a key lesson; raw accuracy is misleading when the positive class is rare.
+
+## Future improvements
+
+- Probability calibration so risk estimates are better grounded
+- Cross-validation-based reporting in the interface's "about the model" section
+- Containerized deployment

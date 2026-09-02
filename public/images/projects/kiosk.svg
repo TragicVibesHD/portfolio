@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Virtual Kiosk Concept placeholder image">
+  <rect width="800" height="450" fill="#0b1220"/>
+  <g stroke="#1a2438" stroke-width="1" fill="none">
+    <path d="M0 90h800M0 180h800M0 270h800M0 360h800"/>
+  </g>
+  <!-- kiosk -->
+  <rect x="300" y="70" width="200" height="280" rx="18" fill="#1a2438" stroke="#263654"/>
+  <rect x="322" y="95" width="156" height="20" rx="6" fill="#2dd4bf"/>
+  <g>
+    <rect x="322" y="135" width="72" height="72" rx="10" fill="#14b8a6" opacity="0.85"/>
+    <rect x="406" y="135" width="72" height="72" rx="10" fill="#0b1220" stroke="#334155"/>
+    <rect x="322" y="219" width="72" height="72" rx="10" fill="#0b1220" stroke="#334155"/>
+    <rect x="406" y="219" width="72" height="72" rx="10" fill="#14b8a6" opacity="0.45"/>
+  </g>
+  <rect x="360" y="350" width="80" height="40" fill="#111a2c"/>
+  <rect x="320" y="390" width="160" height="12" rx="6" fill="#1a2438"/>
+  <text x="60" y="62" font-family="monospace" font-size="22" fill="#5eead4" letter-spacing="4">VIRTUAL KIOSK CONCEPT</text>
+  <text x="545" y="415" font-family="monospace" font-size="15" fill="#64748b" letter-spacing="2">FIGMA · ANDROID STUDIO</text>
+</svg>

@@ -1,0 +1,65 @@
+---
+title: Course Assessment Scheduler
+summary: A constraint-programming web app that schedules course assessments while reducing excessive daily student workload, built with Flask and Google OR-Tools.
+categories: ['Backend Development', 'Web Development', 'Academic Projects']
+tech: ['Python', 'Flask', 'Google OR-Tools', 'CP-SAT', 'HTML', 'CSS', 'JavaScript', 'CSV']
+features:
+  - Constraint-programming model built on the CP-SAT solver
+  - Respects assessment windows and scheduling constraints for each course
+  - Objective function that penalises overloading students on a single day
+  - Flask web interface for entering courses and viewing the generated schedule
+  - CSV import/export for course and assessment data
+challenges:
+  - Translating real scheduling rules (assessment windows, clashes, daily load) into CP-SAT constraints
+  - Designing an objective function that balances feasibility with fair workload distribution
+  - Keeping solver runtime practical as the number of courses and constraints grows
+contribution: Designed the constraint model, implemented the CP-SAT solver integration and built the Flask interface around it.
+lessons:
+  - How to model a real-world timetabling problem as a constraint-satisfaction problem
+  - The difference between hard constraints and soft (penalised) objectives
+  - Structuring a Flask app so the optimization logic stays independent of the web layer
+image: /images/projects/scheduler.svg
+imageAlt: Abstract illustration of a calendar grid with highlighted assessment slots
+repo: '[SCHEDULER_GITHUB_URL]'
+status: Completed
+year: '2025'
+featured: true
+order: 1
+---
+
+## Overview
+
+University students often face several assessments landing on the same day or within the same week, purely because course coordinators schedule independently of each other. The Course Assessment Scheduler tackles this as an optimization problem: given each course's assessments, allowed scheduling windows and constraints, find a timetable that spreads student workload as evenly as possible.
+
+## The problem
+
+Assessment scheduling by hand has two failure modes: outright clashes, and legal-but-brutal weeks where a student sits multiple assessments in a day. Both are avoidable if scheduling is treated as a constrained optimization problem rather than a manual calendar exercise.
+
+## Goals
+
+- Generate clash-free assessment schedules automatically
+- Keep every assessment inside its allowed window
+- Reduce the number of days where students face excessive assessment load
+- Make the tool usable through a simple web interface rather than a script
+
+## How it works
+
+The scheduling core is a constraint-programming model built with Google OR-Tools' CP-SAT solver. Each assessment becomes a decision variable over its allowed date range; hard constraints enforce windows and prevent clashes, while soft constraints penalise days where too many assessments stack up for the same cohort. The solver minimises the total penalty, and the Flask layer presents the result as a readable schedule.
+
+Course and assessment data can be loaded from CSV files, which keeps the tool practical for coordinators who already manage course data in spreadsheets.
+
+## Decisions and trade-offs
+
+- **CP-SAT over heuristics:** a hand-rolled greedy scheduler would have been simpler, but the CP-SAT solver guarantees constraint satisfaction and produces measurably better workload distribution.
+- **Soft constraints for workload:** daily-load limits are penalised rather than forbidden, so the solver always returns a usable schedule even when a perfect one doesn't exist.
+- **Flask kept thin:** all optimization logic lives in its own module, so the model can be tested and reused without the web layer.
+
+## Lessons learned
+
+Modelling was the hard part — the solver is only as good as the constraints you feed it. Iterating on the objective function taught me how small changes in penalty weights change the character of the entire schedule, and structuring the project cleanly made those experiments cheap.
+
+## Future improvements
+
+- Per-student conflict modelling based on actual enrolment data
+- Exporting schedules to calendar formats (iCal)
+- A visual timeline view of the generated schedule

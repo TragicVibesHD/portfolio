@@ -1,0 +1,59 @@
+---
+title: Firefighter Quest
+summary: A 2D Java game with player physics, multiple enemy and hazard types, collectibles and a full HUD — built on object-oriented design and a custom game loop.
+categories: ['Java Development', 'Academic Projects']
+tech: ['Java', 'Java 21', 'OOP', 'Game loop', 'Collision detection']
+features:
+  - Player movement and physics
+  - Multiple enemy types with distinct behaviour
+  - Traps and environmental hazards
+  - Collectible items and health system
+  - Collision detection and response
+  - HUD showing player status
+challenges:
+  - Designing a class hierarchy that keeps enemy and hazard behaviour extensible
+  - Getting collision detection reliable at game-loop speeds
+  - Tuning movement and physics so the game feels responsive
+contribution: Designed and implemented the game systems — entities, physics, collisions, health and HUD.
+lessons:
+  - How a fixed game loop separates update logic from rendering
+  - Using inheritance and polymorphism where they genuinely simplify entity code
+  - Debugging real-time behaviour that unit tests don't easily capture
+image: /images/projects/firefighter.svg
+imageAlt: Abstract pixel-style illustration of a firefighter character amid flames
+repo: '[FIREFIGHTER_QUEST_GITHUB_URL]'
+status: Completed
+year: '2024'
+featured: false
+order: 4
+---
+
+## Overview
+
+Firefighter Quest is a 2D Java game where the player navigates hazardous levels, avoiding enemies and traps while collecting items and managing health. It was built from the ground up in Java 21 — no game engine — which meant implementing the game loop, physics, collision handling and UI directly.
+
+## Goals
+
+- Build a complete, playable game using object-oriented design
+- Implement core game architecture — loop, entities, physics, collisions — by hand
+- Support multiple enemy and hazard types without duplicated code
+
+## How it works
+
+The game runs on a loop that updates entity state and renders each frame. Entities — the player, enemies, traps, collectibles — share a common base class and override behaviour where they differ, so adding a new enemy type means adding one class, not touching the loop. Collision detection resolves interactions between the player and the world: taking damage from hazards, picking up items, blocking movement against solid objects. A HUD tracks health and collected items.
+
+## Decisions and trade-offs
+
+- **No engine:** using plain Java meant more upfront work but a much deeper understanding of what engines actually do.
+- **Entity base class + polymorphism:** the classic OOP approach fit naturally here and kept the update loop free of type-checking special cases.
+- **Simple collision shapes:** axis-aligned bounding boxes were accurate enough for the gameplay and kept collision code fast and debuggable.
+
+## Lessons learned
+
+Real-time systems fail differently from request/response code — bugs are often about ordering and timing rather than wrong logic. Building the loop, physics and collisions by hand made concepts like frame-rate independence and update/render separation concrete instead of theoretical.
+
+## Future improvements
+
+- Sound effects and music
+- Additional levels and a level-loading format
+- Gamepad support
