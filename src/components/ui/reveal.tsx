@@ -1,44 +1,44 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import { cn } from '@/lib/utils';
 
 /**
- * Reveals children once they scroll into view.
+ * Reveals its children once they scroll into view.
  *
- * Uses IntersectionObserver rather than a scroll listener so it costs
- * nothing on the main thread, and disconnects after firing. Under
- * `prefers-reduced-motion` the content is shown immediately — the CSS in
- * globals.css neutralises the transform regardless, but skipping the
- * observer avoids pointless work.
+ * Uses IntersectionObserver rather than a scroll listener, so it costs
+ * nothing on the main thread, and disconnects as soon as it has fired.
+ *
+ * Under `prefers-reduced-motion` the content is visible from the first
+ * render and no observer is created at all — visibility is derived from the
+ * media query rather than pushed into state by an effect.
  */
 export function Reveal({
   children,
   className,
   delay = 0,
-  as: Tag = 'div',
 }: {
   children: React.ReactNode;
   className?: string;
   delay?: number;
-  as?: 'div' | 'li' | 'section' | 'article';
 }) {
-  const ref = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
+  const [scrolledIntoView, setScrolledIntoView] = useState(false);
+
+  const visible = reducedMotion || scrolledIntoView;
 
   useEffect(() => {
+    if (reducedMotion || scrolledIntoView) return;
+
     const node = ref.current;
     if (!node) return;
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setVisible(true);
-      return;
-    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          setScrolledIntoView(true);
           observer.disconnect();
         }
       },
@@ -47,16 +47,15 @@ export function Reveal({
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [reducedMotion, scrolledIntoView]);
 
   return (
-    <Tag
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ref={ref as any}
+    <div
+      ref={ref}
       className={cn('reveal', visible && 'is-visible', className)}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}
-    </Tag>
+    </div>
   );
 }

@@ -22,11 +22,7 @@ export function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close the mobile sheet whenever navigation happens
-  useEffect(() => setOpen(false), [pathname]);
-
-  const isActive = (href: string) =>
-    href === '/' ? pathname === '/' : pathname.startsWith(href);
+  const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href));
 
   return (
     <header
@@ -96,9 +92,7 @@ export function Header() {
                     </button>
                   </Dialog.Close>
                 </div>
-                <Dialog.Description className="sr-only">
-                  Site navigation links
-                </Dialog.Description>
+                <Dialog.Description className="sr-only">Site navigation links</Dialog.Description>
 
                 <nav aria-label="Mobile" className="mt-6">
                   <ul className="flex flex-col gap-1">
@@ -107,6 +101,10 @@ export function Header() {
                         <Link
                           href={link.href}
                           aria-current={isActive(link.href) ? 'page' : undefined}
+                          // Close on click rather than reacting to a pathname
+                          // change: navigating to the current route would not
+                          // fire that effect, leaving the sheet stuck open.
+                          onClick={() => setOpen(false)}
                           className={cn(
                             'block rounded-lg px-3 py-3 text-base transition-colors',
                             isActive(link.href)

@@ -44,3 +44,9 @@ next-env.d.ts
 # content-collections generated output
 .content-collections/
 
+
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

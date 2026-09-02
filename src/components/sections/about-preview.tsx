@@ -12,18 +12,13 @@ export function AboutPreview() {
     <Section id="about" className="bg-surface/30 border-border border-y">
       <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
         <div>
-          <SectionHeading
-            eyebrow="Who I am"
-            title="About me"
-            description={site.intro}
-          />
+          <SectionHeading eyebrow="Who I am" title="About me" description={site.intro} />
 
           <div className="mt-8">
             <p className="text-muted text-sm leading-relaxed">
-              I am looking for roles where I can keep building real systems and
-              learn from people further along than me. The work below spans
-              constraint optimization, machine learning, full-stack web and
-              native Android — all of it built end to end rather than followed
+              I am looking for roles where I can keep building real systems and learn from people
+              further along than me. The work below spans constraint optimization, machine learning,
+              full-stack web and native Android — all of it built end to end rather than followed
               from a tutorial.
             </p>
 

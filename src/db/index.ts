@@ -16,8 +16,6 @@ const connectionString = process.env.DATABASE_URL;
 
 export const isDatabaseConfigured = Boolean(connectionString);
 
-export const db = connectionString
-  ? drizzle(neon(connectionString), { schema })
-  : null;
+export const db = connectionString ? drizzle(neon(connectionString), { schema }) : null;
 
 export { schema };

@@ -14,19 +14,16 @@ export function ContactCta() {
         <div
           className="pointer-events-none absolute -top-24 left-1/2 size-80 -translate-x-1/2 rounded-full opacity-25 blur-3xl"
           style={{
-            background:
-              'radial-gradient(circle, var(--accent) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)',
           }}
           aria-hidden="true"
         />
 
         <div className="relative">
-          <h2 className="text-3xl font-semibold sm:text-4xl">
-            Let&rsquo;s build something
-          </h2>
+          <h2 className="text-3xl font-semibold sm:text-4xl">Let&rsquo;s build something</h2>
           <p className="text-muted mx-auto mt-4 max-w-xl text-base leading-relaxed">
-            {site.availability} If you are hiring, or just want to talk about a
-            project, I would be glad to hear from you.
+            {site.availability} If you are hiring, or just want to talk about a project, I would be
+            glad to hear from you.
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-3">

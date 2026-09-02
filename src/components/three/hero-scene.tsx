@@ -6,6 +6,7 @@ import { Bloom, EffectComposer } from '@react-three/postprocessing';
 import { useMemo, useRef, Suspense } from 'react';
 import * as THREE from 'three';
 import type { Tier } from '@/hooks/use-device-capability';
+import { createRandom } from '@/lib/random';
 
 /**
  * Ambient hero object.
@@ -46,7 +47,7 @@ function DistortedCore({ tier, color }: SceneProps) {
 
   return (
     <Float speed={1.1} rotationIntensity={0.25} floatIntensity={0.55}>
-      <mesh ref={mesh} scale={tier === 'high' ? 1.32 : 1.2}>
+      <mesh ref={mesh} scale={tier === 'high' ? 1.15 : 1.05}>
         <icosahedronGeometry args={[1, tier === 'high' ? 24 : 10]} />
         <MeshDistortMaterial
           color={color}
@@ -66,13 +67,17 @@ function Particles({ count, color }: { count: number; color: string }) {
   const points = useRef<THREE.Points>(null);
 
   const positions = useMemo(() => {
+    // Seeded rather than Math.random: a re-render must not silently
+    // rearrange the particle field.
+    const random = createRandom(0x5eed);
     const array = new Float32Array(count * 3);
+
     for (let i = 0; i < count; i += 1) {
       // Distribute on a spherical shell so the cloud reads as depth
       // around the core rather than a flat rectangle of dots.
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      const radius = 2.4 + Math.random() * 2.1;
+      const theta = random() * Math.PI * 2;
+      const phi = Math.acos(2 * random() - 1);
+      const radius = 2.4 + random() * 2.1;
 
       array[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
       array[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
@@ -109,11 +114,7 @@ function Particles({ count, color }: { count: number; color: string }) {
   );
 }
 
-export default function HeroScene({
-  tier,
-  color,
-  frameloop = 'always',
-}: HeroSceneProps) {
+export default function HeroScene({ tier, color, frameloop = 'always' }: HeroSceneProps) {
   const high = tier === 'high';
 
   return (
@@ -134,7 +135,7 @@ export default function HeroScene({
     >
       <Suspense fallback={null}>
         <ambientLight intensity={0.35} />
-        <directionalLight position={[4, 4, 4]} intensity={1.1} />
+        <directionalLight position={[4, 4, 4]} intensity={0.8} />
 
         <DistortedCore tier={tier} color={color} />
         <Particles count={high ? 420 : 160} color={color} />
@@ -143,21 +144,21 @@ export default function HeroScene({
         <Environment resolution={high ? 256 : 128}>
           <Lightformer
             form="rect"
-            intensity={2.2}
+            intensity={2.0}
             position={[3, 3, 2]}
             scale={[5, 5, 1]}
             color="#ffffff"
           />
           <Lightformer
             form="circle"
-            intensity={1.6}
+            intensity={1.7}
             position={[-4, -1, 2]}
             scale={[3, 3, 1]}
             color={color}
           />
           <Lightformer
             form="rect"
-            intensity={0.9}
+            intensity={0.6}
             position={[0, -4, -2]}
             scale={[8, 3, 1]}
             color="#6366f1"
@@ -168,9 +169,9 @@ export default function HeroScene({
         {high ? (
           <EffectComposer enableNormalPass={false}>
             <Bloom
-              intensity={0.55}
-              luminanceThreshold={0.55}
-              luminanceSmoothing={0.3}
+              intensity={0.42}
+              luminanceThreshold={0.68}
+              luminanceSmoothing={0.35}
               mipmapBlur
             />
           </EffectComposer>

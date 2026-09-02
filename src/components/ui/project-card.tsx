@@ -65,7 +65,7 @@ export function ProjectCard({
           </h3>
           {href ? (
             <ArrowUpRight
-              className="text-muted group-hover:text-accent mt-1 size-4 shrink-0 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              className="text-muted group-hover:text-accent mt-1 size-4 shrink-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
               aria-hidden="true"
             />
           ) : null}
@@ -78,9 +78,7 @@ export function ProjectCard({
           <span className="text-muted font-mono text-xs">{project.year}</span>
         </div>
 
-        <p className="text-muted mt-3 flex-1 text-sm leading-relaxed">
-          {project.summary}
-        </p>
+        <p className="text-muted mt-3 flex-1 text-sm leading-relaxed">{project.summary}</p>
 
         <ul className="mt-4 flex flex-wrap gap-1.5">
           {project.tech.slice(0, 5).map((tech) => (
