@@ -105,22 +105,26 @@ test.describe('contact form', () => {
     await page.goto('/contact');
     await ready(page);
 
-    await page.getByRole('button', { name: 'Send message' }).click();
+    const form = page.locator('form');
+    await form.getByRole('button', { name: 'Send message' }).click();
 
-    await expect(page.getByText('Please enter your name')).toBeVisible();
-    await expect(page.getByText('Please enter your email address')).toBeVisible();
+    await expect(form.getByText('Please enter your name')).toBeVisible();
+    await expect(form.getByText('Please enter your email address')).toBeVisible();
   });
 
   test('rejects a malformed email address', async ({ page }) => {
     await page.goto('/contact');
     await ready(page);
 
-    await page.getByLabel('Name').fill('Jane Doe');
-    await page.getByLabel('Email').fill('nope');
-    await page.getByLabel('Message').fill('A'.repeat(40));
-    await page.getByRole('button', { name: 'Send message' }).click();
+    // Scoped to the form: the header and footer also expose an "Email" link
+    // (mailto:), so an unscoped getByLabel('Email') matches three elements.
+    const form = page.locator('form');
+    await form.getByLabel('Name').fill('Jane Doe');
+    await form.getByLabel('Email').fill('nope');
+    await form.getByLabel('Message').fill('A'.repeat(40));
+    await form.getByRole('button', { name: 'Send message' }).click();
 
-    await expect(page.getByText('Please enter a valid email address')).toBeVisible();
+    await expect(form.getByText('Please enter a valid email address')).toBeVisible();
   });
 });
 

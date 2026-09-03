@@ -1,6 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const PORT = 3000;
+// Deliberately NOT 3000. `reuseExistingServer` would otherwise pick up a
+// running `next dev` and silently run the whole suite against the dev
+// server, where HMR keeps a socket open (so `networkidle` never settles)
+// and the tests fail for reasons that have nothing to do with the code.
+const PORT = 3100;
 const baseURL = `http://127.0.0.1:${PORT}`;
 
 export default defineConfig({
