@@ -8,10 +8,9 @@
  */
 
 export const site = {
-  /** PLACEHOLDER - replace with your full name */
-  name: '[FULL_NAME]',
+  name: 'Shivan Justin Singh',
   /** Short form used in the header wordmark */
-  shortName: '[FULL_NAME]',
+  shortName: 'Shivan Singh',
 
   role: 'Software Developer',
   headline: 'Computer Science graduate building practical software.',
@@ -36,25 +35,23 @@ export const site = {
     'Data Analyst',
   ],
 
-  /** PLACEHOLDER - your real email address */
-  email: '[EMAIL_ADDRESS]',
+  email: 'shivan562@yahoo.com',
   /** Optional. Leave '' to keep your phone number off the site. */
   phone: '',
 
-  /** Resume lives in /public. Replace the placeholder PDF before launch. */
+  /** Resume lives in /public. */
   resumePath: '/resume.pdf',
 
   github: 'https://github.com/TragicVibesHD',
-  /** PLACEHOLDER - replace with your real LinkedIn profile */
-  linkedin: 'https://www.linkedin.com/in/[LINKEDIN_USERNAME]',
+  linkedin: 'https://www.linkedin.com/in/shivan-singh-8639b2360',
   /** Public repo for this site, shown in the footer. Leave '' to hide. */
   sourceRepo: 'https://github.com/TragicVibesHD/portfolio',
 
   seo: {
-    titleTemplate: '%s - [FULL_NAME]',
-    defaultTitle: '[FULL_NAME] - Software Developer',
+    titleTemplate: '%s - Shivan Justin Singh',
+    defaultTitle: 'Shivan Justin Singh - Software Developer',
     description:
-      'Portfolio of [FULL_NAME], a Computer Science graduate from The University of the West Indies based in Trinidad and Tobago, building software with Python, Java, Flask, SQL and JavaScript.',
+      'Portfolio of Shivan Justin Singh, a Computer Science graduate from The University of the West Indies based in Trinidad and Tobago, building software with Python, Java, Flask, SQL and JavaScript.',
     keywords: [
       'software developer',
       'computer science graduate',
@@ -68,10 +65,57 @@ export const site = {
   },
 } as const;
 
-/** Canonical origin. Set NEXT_PUBLIC_SITE_URL in production. */
-export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000').replace(
-  /\/$/,
-  '',
+export const FALLBACK_SITE_URL = 'http://localhost:3000';
+
+/**
+ * Resolve the canonical origin from the first usable candidate.
+ *
+ * Two things make this less trivial than it looks:
+ *
+ * 1. Next inlines `process.env.NEXT_PUBLIC_*` at build time and substitutes
+ *    an EMPTY STRING when the variable is unset. `?? fallback` therefore
+ *    does not fire, because `''` is not nullish. That empty string reached
+ *    `new URL()` in the root layout and failed the entire Vercel build with
+ *    ERR_INVALID_URL. Candidates are trimmed and emptiness-checked instead.
+ *
+ * 2. `new URL()` throws. At module scope that is unrecoverable and takes the
+ *    whole build down, so every candidate is validated and a bad one is
+ *    skipped rather than thrown.
+ *
+ * Bare hostnames (Vercel supplies `my-app.vercel.app`, no protocol) are
+ * upgraded to https.
+ */
+export function resolveSiteUrl(...candidates: (string | undefined)[]): string {
+  for (const candidate of candidates) {
+    const value = candidate?.trim();
+    if (!value) continue;
+
+    const withProtocol = /^https?:\/\//i.test(value) ? value : `https://${value}`;
+
+    try {
+      return new URL(withProtocol).href.replace(/\/$/, '');
+    } catch {
+      // Malformed value — try the next candidate rather than failing the build.
+    }
+  }
+
+  return FALLBACK_SITE_URL;
+}
+
+/**
+ * Canonical origin.
+ *
+ * Set NEXT_PUBLIC_SITE_URL once there is a custom domain. Until then the
+ * Vercel-provided values keep canonical tags, the sitemap and OG images
+ * pointing at the real deployment with no configuration at all.
+ */
+export const siteUrl = resolveSiteUrl(
+  process.env.NEXT_PUBLIC_SITE_URL,
+  // Stable across deploys, unlike VERCEL_URL which is per-deployment.
+  process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL,
+  process.env.VERCEL_PROJECT_PRODUCTION_URL,
+  process.env.NEXT_PUBLIC_VERCEL_URL,
+  process.env.VERCEL_URL,
 );
 
 export interface NavLink {
